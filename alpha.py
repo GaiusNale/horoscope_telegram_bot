@@ -8,7 +8,7 @@ bot = telebot.TeleBot(BOT_TOKEN)
 
 @bot.message_handler(commands=['start', 'hello'])
 def welcome(message):
-    bot.reply_to(message, "Hello there")
+    bot.reply_to(message, "Oi oi oi")
 
 @bot.message_handler(func=lambda msg: True)
 def echo_messages(message):
