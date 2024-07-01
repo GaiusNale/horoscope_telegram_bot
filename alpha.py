@@ -1,18 +1,22 @@
 import os 
+import requests
 import telebot 
 from keysus import key
 
 BOT_TOKEN = key
 
-bot = telebot.TeleBot(BOT_TOKEN)
+def get_daily_horoscope(sign: str, day: str) -> dict:
+    
 
-@bot.message_handler(commands=['start', 'hello'])
-def welcome(message):
-    bot.reply_to(message, "Oi oi oi")
+# bot = telebot.TeleBot(BOT_TOKEN)
 
-@bot.message_handler(func=lambda msg: True)
-def echo_messages(message):
-    bot.reply_to(message, message.text)
+# @bot.message_handler(commands=['start', 'hello'])
+# def welcome(message):
+#     bot.reply_to(message, "Oi oi oi")
 
-bot.infinity_polling()
+# @bot.message_handler(func=lambda msg: True)
+# def echo_messages(message):
+#     bot.reply_to(message, message.text)
+
+# bot.infinity_polling()
 
