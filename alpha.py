@@ -6,7 +6,11 @@ from keysus import key
 BOT_TOKEN = key
 
 def get_daily_horoscope(sign: str, day: str) -> dict:
-    
+    """ Get Daily Horoscope 
+    Data format 
+    sign: str
+    date: str (can be used as Today, Yesterday, Tommorow or a particular day i.e  YYYY-MM-DD)"""
+
 
 # bot = telebot.TeleBot(BOT_TOKEN)
 
