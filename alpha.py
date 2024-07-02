@@ -4,6 +4,8 @@ import telebot
 from keysus import key
 
 BOT_TOKEN = key
+bot = telebot.TeleBot(BOT_TOKEN)
+
 
 def get_daily_horoscope(sign: str, day: str) -> dict:
     """ Get Daily Horoscope 
@@ -17,8 +19,9 @@ def get_daily_horoscope(sign: str, day: str) -> dict:
 
     return response.json()
 
+@bot.message
 
-# bot = telebot.TeleBot(BOT_TOKEN)
+
 
 # @bot.message_handler(commands=['start', 'hello'])
 # def welcome(message):
