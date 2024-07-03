@@ -10,11 +10,16 @@ def get_daily_horoscope(sign: str, day: str) -> dict:
     """ Get Daily Horoscope 
     Data format 
     sign: str
-    date: str (can be used as Today, Yesterday, Tommorow or a particular day i.e  YYYY-MM-DD)"""
+    date: str (can be used as Today, Yesterday, Tomorrow or a particular day i.e  YYYY-MM-DD)"""
 
     url = "https://aztro.sameerkumar.website"
     params = {"sign": sign, "day": day}
-    response = requests.get(url, params=params)
+    response = requests.post(url, params=params)
+    
+    # Check if the request was successful
+    if response.status_code != 200:
+        return {"error": f"Failed to retrieve data. Status code: {response.status_code}"}
+    
     return response.json()
 
 @bot.message_handler(commands=['horoscope'])
@@ -32,13 +37,18 @@ def day_picker(message):
 def fetch_horoscope(message, sign):
     day = message.text
     horoscope = get_daily_horoscope(sign, day)
-    data = horoscope["data"]
-    horoscope_msg = f"*Horoscope*: {data['horoscope_data']}\n\n*Sign:* {sign} \n\n*Day*: {data['date']}"
+    
+    if "error" in horoscope:
+        bot.send_message(message.chat.id, horoscope["error"])
+        return
+    
+    # Construct the horoscope message from the response
+    horoscope_msg = f"*Horoscope*: {horoscope.get('description', 'No description available')}\n\n*Sign:* {sign}\n*Day*: {day.capitalize()}"
     bot.send_message(message.chat.id, "Here's your horoscope.")
     bot.send_message(message.chat.id, horoscope_msg, parse_mode="Markdown")
 
 @bot.message_handler(commands=['start', 'hello'])
 def welcome(message):
-    bot.reply_to(message, "Hello! you can use the /horoscope command to get your horoscopes!")
+    bot.reply_to(message, "Hello! You can use the /horoscope command to get your horoscopes!")
 
 bot.infinity_polling()
