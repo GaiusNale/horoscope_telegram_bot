@@ -12,7 +12,7 @@ def get_daily_horoscope(sign: str, day: str) -> dict:
     sign: str
     date: str (can be used as Today, Yesterday, Tommorow or a particular day i.e  YYYY-MM-DD)"""
 
-    url = "https://horoscope-app-api.vercel.app/api/v1/get-horoscope/daily"
+    url = "https://aztro.sameerkumar.website"
     params = {"sign": sign, "day": day}
     response = requests.get(url, params=params)
     return response.json()
